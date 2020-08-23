@@ -1,16 +1,3 @@
-# ec8
+# EC8-timetable
 
-A new Flutter application.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This is a simple time table application based on Flutter and Firebase. All the details of classes can be updated in Firebase Realtime Database. It provides a list of classes under each weekday. Long press of details, tap share button for sharing the zoom link, tap open icon to open the link in the default browser of your phone.
