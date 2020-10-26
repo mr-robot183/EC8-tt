@@ -35,7 +35,7 @@ class _SplashState extends State<Splash> {
     MediaQueryData queryData = MediaQuery.of(context);
     return Scaffold(
       body: Container(
-        color: Colors.indigo,
+        color: Colors.red,
         child: Column(
           children: [
             SizedBox(height: queryData.size.height/2.3,),

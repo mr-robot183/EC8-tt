@@ -21,7 +21,7 @@ class _ListyState extends State<Listy> {
   Future<void> share() async {
     await FlutterShare.share(
         title: 'Link share',
-        text: 'Zoom Link for ${widget.period.name}',
+        text: 'Zoom Link for ${widget.period.name}-${widget.period.type}',
         linkUrl: widget.period.link,
         chooserTitle: 'Share Zoom Link');
   }
@@ -73,25 +73,22 @@ class _ListyState extends State<Listy> {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: FaIcon(FontAwesomeIcons.dotCircle, color: Colors.indigo,),
-        title: Text('${widget.period.code} (${widget.period.start}-${widget.period.end}) ${widget.period.type}', style: GoogleFonts.mavenPro(
-            fontSize: 21,
-            fontWeight: FontWeight.normal,
-            color: Colors.black87
-        ),),
-        isThreeLine: true,
-        /*subtitle: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: RichText(text: TextSpan(text: "${period.link}", recognizer: _launchURL),),
-        ),*/
-        subtitle: IconButton(
-          icon: Icon(Icons.open_in_browser),
-          onPressed: () => setState(() {
+        leading: FaIcon(FontAwesomeIcons.dotCircle, color: Colors.red,),
+        title: GestureDetector(
+          onTap: () => setState(() {
             _launched = _launchURL(widget.period);
           }),
+          child: Text('${widget.period.code}  ${widget.period.type}', style: GoogleFonts.mavenPro(
+              fontSize: 18,
+              fontWeight: FontWeight.normal,
+              color: Colors.black87
+          ),),
+        ),
+        subtitle: Text(
+          "(${widget.period.start} - ${widget.period.end})"
         ),
         trailing: IconButton(
-          icon: Icon(Icons.share),
+          icon: Icon(Icons.share, color: Colors.red,),
           onPressed: () => share(),
         ),
         //onTap: ,

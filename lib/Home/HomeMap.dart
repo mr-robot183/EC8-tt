@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:ec8/Models/period.dart';
@@ -11,6 +12,8 @@ import 'package:ec8/Views/WeekDays/saturday.dart';
 import 'package:ec8/Views/WeekDays/thursday.dart';
 import 'package:ec8/Views/WeekDays/tuesday.dart';
 import 'package:ec8/Views/WeekDays/wednesday.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 
 class HomeMap extends StatefulWidget {
@@ -21,10 +24,27 @@ class HomeMap extends StatefulWidget {
 class _HomeMapState extends State<HomeMap> {
   @override
   Widget build(BuildContext context) {
+
+    Future<void> _launched;
+
+
+    _launchURL(link) async {
+      String url = link;
+      if (await canLaunch(url)) {
+        await launch(url,
+          forceSafariVC: false,
+          forceWebView: false,
+        );
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
+
     MediaQueryData queryData = MediaQuery.of(context);
+
     return DefaultTabController(length: 6, child: Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigo,
+        backgroundColor: Colors.red,
         elevation: 5,
         centerTitle: true,
         title: Text("EC-8", style: GoogleFonts.audiowide(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),),
@@ -37,7 +57,7 @@ class _HomeMapState extends State<HomeMap> {
               width: queryData.size.width/4,
               child: Center(
                 child: Text("Monday", style: TextStyle(
-                    fontSize: 20.0, fontWeight: FontWeight.normal, color: Colors.white),
+                    fontSize: 16.0, fontWeight: FontWeight.normal, color: Colors.white),
                 ),
               ),
             ),
@@ -46,7 +66,7 @@ class _HomeMapState extends State<HomeMap> {
               width: queryData.size.width/4,
               child: Center(
                 child: Text("Tuesday", style: TextStyle(
-                    fontSize: 20.0, fontWeight: FontWeight.normal, color: Colors.white),
+                    fontSize: 16.0, fontWeight: FontWeight.normal, color: Colors.white),
                 ),
               ),
 
@@ -56,7 +76,7 @@ class _HomeMapState extends State<HomeMap> {
               width: queryData.size.width/4,
               child: Center(
                 child: Text("Wednesday", style: TextStyle(
-                    fontSize: 20.0, fontWeight: FontWeight.normal, color: Colors.white),
+                    fontSize: 16.0, fontWeight: FontWeight.normal, color: Colors.white),
                 ),
               ),
 
@@ -66,7 +86,7 @@ class _HomeMapState extends State<HomeMap> {
               width: queryData.size.width/4,
               child: Center(
                 child: Text("Thursday", style: TextStyle(
-                    fontSize: 20.0, fontWeight: FontWeight.normal, color: Colors.white),
+                    fontSize: 16.0, fontWeight: FontWeight.normal, color: Colors.white),
                 ),
               ),
 
@@ -76,7 +96,7 @@ class _HomeMapState extends State<HomeMap> {
               width: queryData.size.width/4,
               child: Center(
                 child: Text("Friday", style: TextStyle(
-                    fontSize: 20.0, fontWeight: FontWeight.normal, color: Colors.white),
+                    fontSize: 16.0, fontWeight: FontWeight.normal, color: Colors.white),
                 ),
               ),
 
@@ -86,7 +106,7 @@ class _HomeMapState extends State<HomeMap> {
               width: queryData.size.width/4,
               child: Center(
                 child: Text("Saturday", style: TextStyle(
-                    fontSize: 20.0, fontWeight: FontWeight.normal, color: Colors.white),
+                    fontSize: 16.0, fontWeight: FontWeight.normal, color: Colors.white),
                 ),
               ),
 
@@ -111,27 +131,38 @@ class _HomeMapState extends State<HomeMap> {
                     Text("EC-8", style: GoogleFonts.audiowide(
                         fontSize: 50,
                         fontWeight: FontWeight.bold,
-                        color: Colors.indigo
+                        color: Colors.red
                     ),),
                   ],
                 ),
               ),
             ),
             Card(child: ListTile(
-              leading: Icon(Icons.feedback, color: Colors.indigo,),
-              title: Text("Feedback", style: GoogleFonts.mavenPro(
-                  fontSize: 23,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.black87
-              ),),
+              leading: Icon(Icons.feedback, color: Colors.red,),
+              title: GestureDetector(
+                onTap: () => setState(() {
+                  _launched = _launchURL('https://github.com/mr-robot183/EC8-tt/issues');
+                }),
+
+                child: Text("Create Issue", style: GoogleFonts.mavenPro(
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black87
+                ),),
+              ),
             ),),
             Card(child: ListTile(
-              leading: Icon(Icons.help, color: Colors.indigo,),
-              title: Text("Help Centre", style: GoogleFonts.mavenPro(
-                  fontSize: 23,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.black87
-              ),),
+              leading: Icon(FontAwesomeIcons.handsHelping, color: Colors.red,),
+              title: GestureDetector(
+                onTap: () => setState(() {
+                  _launched = _launchURL('https://github.com/mr-robot183/EC8-tt');
+                }),
+                child: Text("Contribute on Github", style: GoogleFonts.mavenPro(
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black87
+                ),),
+              ),
             ),),
           ],
         ),
